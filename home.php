@@ -98,16 +98,6 @@
       </div>
 <?php endif; ?>
 
-<script src="js/chart.js"></script>
-
-
-<!------------------------- graph--------------------------------------------->
-<script type="text/javascript" src="chartjs/chart.js"></script>
-<script type="text/javascript" src="chartjs/jquery.js"></script>
-<script src="https://cdn.jsdelivr.net/npm/chart.js/dist/chart.min.js"></script>
-<script src="https://cdn.jsdelivr.net/npm/chartjs-adapter-date-fns/dist/chartjs-adapter-date-fns.bundle.min.js"></script>
-
- 
 
 <div class="content">
  <div class="container-fluid">
@@ -139,7 +129,7 @@
           chart.draw(chart2, options);
         }
     </script>
-    <div id="piechart" style="width: 520px; height: 420px;">
+    <div id="piechart" style="width: 550px; height: 420px;">
     </div>
 
     <!---------------------DonutCHart------------------------>
@@ -170,144 +160,46 @@
           chart.draw(chart3, options);
         }
     </script>
-    <div id="donutchart" style="width: 550px; height: 420px;">
+    <div id="donutchart" style="width: 600px; height: 420px;">
     </div> 
   </div>    
-    <!-----------------------Graph------------------------------->
-     <div class="col-lg-6">
-       <div class="card">
-         <div class="card-header border-0">
-           <div class="d-flex justify-content-between">
-             <h3 class="card-title">Queries</h3>
-             <a href="javascript:void(0);">View Report</a>
-           </div>
-          </div>
-          <div class="card-body">
-            <div class="d-flex">
-             <p class="d-flex flex-column">
-             <b><?php echo $conn->query("SELECT * FROM tickets")->num_rows; ?></span></b> 
-             <span>Queries this year</span></p>
-             <p class="ml-auto d-flex flex-column text-right">
-              <label> Select year</label>
-              <?php
-                $already_selected_value = 2022;
-                $earliest_year = 1950;
-                
-                print '<select name="some_field">';
-                foreach (range(date('Y'), $earliest_year) as $x) {
-                    print '<option value="'.$x.'"'.($x === $already_selected_value ? ' selected="selected"' : '').'>'.$x.'</option>';
-                }
-                print '</select>';
-              ?>
-             </p>            
-            </div>
+<!-------------------------------------------------------------Graph----------------------------------------------------------------------->
 
-            <div class="position-relative mb-4">
+<script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
+    <script type="text/javascript">
+      google.charts.load('current', {'packages':['bar']});
+      google.charts.setOnLoadCallback(drawChart);
 
-             <?php
-             $con=  mysqli_connect('localhost','root','','css_db');
-             $sql = "SELECT status, count(*) as value FROM tickets where status BETWEEN 0 AND 1";
-             ?>
-             
-              <div>
-               <canvas id="myChart"></canvas>
-              </div>
-              
+      function drawChart() {
+        var data = google.visualization.arrayToDataTable([
+          ['Lab', 'Query', 'Solved', 'Unsolved'],
+          <?php
+            $query4="SELECT lab, count(*) as number2, status IN(0,1) as unsolved,status IN(2) as solved FROM tickets GROUP BY lab";
+            $res=mysqli_query($conn,$query4);
+            while($data=mysqli_fetch_array($res)){
+              $lab=$data['lab'];
+              $number2=$data['number2'];
+              $Solved = $data['solved'];
+              $Unsolved = $data['unsolved'];
+           ?>
+           ['<?php echo $lab;?>',<?php echo $number2;?>,<?php echo $Solved;?>,<?php echo $Unsolved;?>],   
+           <?php   
+            }
+           ?> 
+        ]);
 
-              <script>
-               
-               const data ={
-               labels: ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun','Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'],
-               datasets: [{
-               label: 'Total', 
-               data: [12, 10, 3, 5, 24, 6,18,10,12,14,16,24],
-               backgroundColor: [ 'rgba(54, 162, 235, 0.2)'],
-               borderColor: ['rgba(54, 162, 235, 1)'],
-               borderWidth: 2},
-               {
-                label: 'Unsolved',
-                data: [6, 5, 1, 3, 12, 3, 9,5,6,7,8,12],
-                backgroundColor: [                                       
-                'rgba(255, 99, 132, 0.2)'
-                ],
-                borderColor: [          
-               'rgb(255, 99, 132)',          
-                ],
-                borderWidth: 2},
-                {
-                label: 'Solved',
-                data: [6, 5, 2, 2, 12, 3, 9,5,6,7,8,12],
-                backgroundColor: [                                       
-                'rgba(75, 192, 192, 0.2)'
-                ],
-                borderColor: [          
-               'rgb(75, 192, 192)',          
-                ],
-                borderWidth: 2
-               }]      
-               };
-                const config ={
-                type: 'bar',
-                data,
-                options: {
-                scales: {               
-                y: {
-                beginAtZero: true
-                }
-                }
-                }
-                };
-                const myChart = new Chart(
-                document.getElementById('myChart'),
-                config
-                );
-              </script>
-            </div>
-          </div>          
-    </div>
-    <!--------------------PieChart----------------->
-  <!------------------------------part 2 ---------------->
+        var options = {
+          chart: {
+            title: 'Lab Wise Query Analysis',
+          },
+          bars: 'vertical' // Required for Material Bar Charts.
+        };
 
- <!---<div class="col-lg-6">
-   <div class="card">
-      <div class="card-header border-0">
-        <div class="d-flex justify-content-between">
-         <h3 class="card-title">Queries per floor</h3>
-         <a href="javascript:void(0);">View Report</a>
-        </div>
-      </div> 
+        var chart = new google.charts.Bar(document.getElementById('barchart_material'));
 
-      <div class="card-body">
-        <div class="d-flex">
-        <p class="d-flex flex-column">
-             <span class="text-bold text-lg">101</span>
-             <span>Lab with max Queries</span></p>
-          <p class="ml-auto d-flex flex-column text-centre">
-           <label> Select floor</label>
-           <select class="custom-select">
-             <option></option> <option>1</option> <option>2</option> <option>3</option> <option>4</option> <option>5</option>
-           </select>
-          </p>
-        </div>
-      </div>
-
-      <div class="position-relative mb-4">
-        
-      
-      <div>
-        <canvas id="labChart"></canvas>
-      </div>
-      <script src="chartjs/lab.js"></script>
-      </div>---->
-    </div>
-  </div>
-</div
-
-
-
-</div>
-</div>
-</div>
-</div>
-</div>
-</div>
+        chart.draw(data, google.charts.Bar.convertOptions(options));
+      }
+    </script>
+  </head>
+  <body>
+    <div id="barchart_material" style="width: 1300px; height: 400px;"></div>
