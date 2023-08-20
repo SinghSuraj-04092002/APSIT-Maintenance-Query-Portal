@@ -98,74 +98,117 @@
       </div>
 <?php endif; ?>
 
+<script src="js/chart.js"></script>
+
+
+<!------------------------- pie chart--------------------------------------------->
 
 <div class="content">
  <div class="container-fluid">
    <div class="row">
-  <!-------------------PieChart--------------------->
-   <script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
-    <script type="text/javascript">
-    google.charts.load('current', {'packages':['corechart']});
-    google.charts.setOnLoadCallback(drawChart);
-    function drawChart() {
-      var chart2 = google.visualization.arrayToDataTable([
-            ['departments', 'number'],
-          <?php
-          //$sql = "SELECT department_id, count(*) as number FROM tickets GROUP BY department_id";
-          $sql = "SELECT departments.name, count(tickets.department_id) as number FROM departments JOIN tickets on departments.id = tickets.department_id GROUP BY departments.name";
-          $fire = mysqli_query($conn,$sql);
-            while ($result = mysqli_fetch_assoc($fire)) {
-              echo"['".$result['name']."',".$result['number']."],";
-            }
-          ?>
-          ]);
-          var options = {
-            title: 'Departments wise querys',
-            fontSize: 13,
-            is3D: true,
-            legend: 'top',
-          };
-          var chart = new google.visualization.PieChart(document.getElementById('piechart'));
-          chart.draw(chart2, options);
-        }
-    </script>
-    <div id="piechart" style="width: 550px; height: 420px;">
-    </div>
+     <div class="col-lg-6">
+       <div class="card">
+         <div class="card-header border-0">
+           <div class="d-flex justify-content-between">
+             <h3 class="card-title">Departments wise querys</h3>             
+           </div>
+          </div>
+          <div class="card-body">
+            <div class="d-flex">
+             <p class="d-flex flex-column">
+             <script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
+             <script type="text/javascript">
+               google.charts.load('current', {'packages':['corechart']});
+               google.charts.setOnLoadCallback(drawChart);
+               function drawChart() {
+               var chart2 = google.visualization.arrayToDataTable([
+               ['departments', 'number'],
+               <?php
+               //$sql = "SELECT department_id, count(*) as number FROM tickets GROUP BY department_id";
+                $sql = "SELECT departments.name, count(tickets.department_id) as number FROM departments JOIN tickets on departments.id = tickets.department_id GROUP BY departments.name";
+                $fire = mysqli_query($conn,$sql);
+               while ($result = mysqli_fetch_assoc($fire)) {
+               echo"['".$result['name']."',".$result['number']."],";
+               }
+               ?>
+               ]);
+               var options = {
+               title: '',
+               fontSize: 13,
+               is3D: true,
+               legend: 'top',
+               };
+               var chart = new google.visualization.PieChart(document.getElementById('piechart'));
+               chart.draw(chart2, options);
+               }
+              </script>
+              <div id="piechart" style="width: 550px; height: 420px;"> </div>
+            </div>
+          </div> 
+        </div>
+      </div>
+                    <!----------------------- donut chart----------->
+     <div class="col-lg-6">
+       <div class="card">
+         <div class="card-header border-0">
+           <div class="d-flex justify-content-between">
+             <h3 class="card-title">Solved and Unsolved queries</h3>             
+           </div>
+          </div>
+           <div class="card-body">
+                        
+              <div class="position-relative mb-4">
+                <script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
+                <script type="text/javascript">
+                  google.charts.load('current', {'packages':['corechart']});
+                  google.charts.setOnLoadCallback(drawChart);
+                  function drawChart() {
+                  var chart3 = google.visualization.arrayToDataTable([
+                  ['status', 'value'],
+                  <?php
+                  //$sql = "SELECT status, count(*) as value FROM tickets GROUP BY status";
+                  $sql = "SELECT statuses.name, count(tickets.status) as value FROM statuses JOIN tickets on statuses.id = tickets.status GROUP BY statuses.name";
+                  $fire = mysqli_query($conn,$sql);
+                  while ($result = mysqli_fetch_assoc($fire)) {
+                  echo"['".$result['name']."',".$result['value']."],";
+                  }
+                  ?>
+                  ]);
+                  var options = {
+                  title: '',
+                  fontSize: 13,
+                  //is3D: true,
+                  legend: 'top',
+                  pieHole: 0.4,
+                  };
+                  var chart = new google.visualization.PieChart(document.getElementById('donutchart'));
+                  chart.draw(chart3, options);
+                  }
+                </script>
+                <div id="donutchart" style="width: 550px; height: 390px;">
+              </div>                             
+            </div>        
+       </div>
+     </div>
+   </div>
+ </div>
+  
+                      
+ <!------------------------------bar chart---------------->
 
-    <!---------------------DonutCHart------------------------>
-    <script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
-    <script type="text/javascript">
-    google.charts.load('current', {'packages':['corechart']});
-    google.charts.setOnLoadCallback(drawChart);
-    function drawChart() {
-      var chart3 = google.visualization.arrayToDataTable([
-            ['status', 'value'],
-          <?php
-          //$sql = "SELECT status, count(*) as value FROM tickets GROUP BY status";
-          $sql = "SELECT statuses.name, count(tickets.status) as value FROM statuses JOIN tickets on statuses.id = tickets.status GROUP BY statuses.name";
-          $fire = mysqli_query($conn,$sql);
-            while ($result = mysqli_fetch_assoc($fire)) {
-              echo"['".$result['name']."',".$result['value']."],";
-            }
-          ?>
-          ]);
-          var options = {
-            title: 'Solved and Unsolved queries',
-            fontSize: 13,
-            //is3D: true,
-            legend: 'top',
-            pieHole: 0.4,
-          };
-          var chart = new google.visualization.PieChart(document.getElementById('donutchart'));
-          chart.draw(chart3, options);
-        }
-    </script>
-    <div id="donutchart" style="width: 600px; height: 420px;">
-    </div> 
-  </div>    
-<!-------------------------------------------------------------Graph----------------------------------------------------------------------->
+ <div class="col-lg-6">
+   <div class="card">
+      <div class="card-header border-0">
+        <div class="d-flex justify-content-between">
+         <h3 class="card-title">Lab Wise Query Analysis</h3>
+         
+        </div>
+      </div> 
 
-<script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
+      <div class="card-body">
+        <div class="d-flex">
+        <p class="d-flex flex-column">
+        <script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
     <script type="text/javascript">
       google.charts.load('current', {'packages':['bar']});
       google.charts.setOnLoadCallback(drawChart);
@@ -203,3 +246,16 @@
   </head>
   <body>
     <div id="barchart_material" style="width: 1300px; height: 400px;"></div>
+      </div>
+    </div>
+  </div>
+</div>
+
+
+
+</div>
+</div>
+</div>
+</div>
+</div>
+</div>
