@@ -12,27 +12,30 @@
   <?php include 'sidebar.php' ?>
 
   <!-- Content Wrapper. Contains page content -->
-  <div class="content-wrapper">
+  
+  <div class="content-wrapper" style= "background-image: url('assets/dist/img/bgimg.png'); background-size:cover; background-position: center center; ">
   	 <div class="toast" id="alert_toast" role="alert" aria-live="assertive" aria-atomic="true">
 	    <div class="toast-body text-white">
 	    </div>
 	  </div>
     <div id="toastsContainerTopRight" class="toasts-top-right fixed"></div>
     <!-- Content Header (Page header) -->
+    
     <div class="content-header">
-      <div class="container-fluid">
+      <div class="container-fluid" >
         <div class="row mb-2">
           <div class="col-sm-6">
             <h1 class="m-0"><?php echo $title ?></h1>
           </div><!-- /.col -->
 
-        </div><!-- /.row -->
+        </div ><!-- /.row -->
             <hr class="border-primary">
       </div><!-- /.container-fluid -->
     </div>
     <!-- /.content-header -->
 
     <!-- Main content -->
+    
     <section class="content">
       <div class="container-fluid">
          <?php 
@@ -109,7 +112,7 @@
     <strong><a href="https://www.apsit.edu.in/">A.P. Shah Institute of Technology</a>.</strong>
     All rights reserved.
     <div class="float-right d-none d-sm-inline-block">
-      <b>APSIT Lab Maintenece Query Portal</b>
+      <b>APSIT | Maintenece Query Portal</b>
     </div>
   </footer>
 </div>

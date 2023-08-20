@@ -18,6 +18,8 @@ foreach($qry as $k => $v){
 					<h3 class="card-title"></h3>
 					<label for="" class="card-title">Ticket no.</label>
 					<p class="control-label"><b><?php echo $uniqid ?></b></p>
+					<label for="" class="card-title">Date & Time: </label>
+					<p class="control-label"><b><?php echo $date_created ?></b></p>
 				</div>
 				<div class="card-body">
 					<div class="container-fluid">
@@ -27,12 +29,14 @@ foreach($qry as $k => $v){
 								<p class="ml-2 d-list"><b><?php echo $subject ?></b></p>
 								<label for="" class="control-label border-bottom border-primary">Lab no.</label>
 								<p class="ml-2 d-list"><b><?php echo $lab ?></b></p>
+								<label for="" class="control-label border-bottom border-primary">Machine ID.</label>
+								<p class="ml-2 d-list"><b><?php echo $MID ?></b></p>
 								<label for="" class="control-label border-bottom border-primary">User</label>
 								<p class="ml-2 d-list"><b><?php echo $cname ?></b></p>
 							</div>
 							<div class="col-md-6">
-								<label for="" class="control-label border-bottom border-primary">Priority</label>
-								<p class="ml-2 d-list"><b><?php echo $Priority ?></b></p>
+								<label for="" class="control-label border-bottom border-primary">Type of Maintenance</label>
+								<p class="ml-2 d-list"><b><?php echo $maintype ?></b></p>
 								<label for="" class="control-label border-bottom border-primary">Status</label>
 								<p class="ml-2 d-list">
 									<?php if($status == 0): ?>
@@ -44,7 +48,7 @@ foreach($qry as $k => $v){
 									<?php else: ?>
 										<span class="badge badge-secondary">Closed</span>
 									<?php endif; ?>
-									<?php if($_SESSION['login_type'] != 3): ?>
+									<?php if($_SESSION['login_type'] != 2): ?>
 									<span class="badge btn-outline-primary btn update_status" data-id = '<?php echo $id ?>'>Update Status</span>
 									<?php endif; ?>
 								</p>

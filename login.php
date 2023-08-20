@@ -17,8 +17,37 @@ if(isset($_SESSION['login_id']))
 header("location:index.php?page=home");
 
 ?>
+<!-----------
+  _________                        __ 
+ /   _____/__ ______________      |__|
+ \_____  \|  |  \_  __ \__  \     |  |
+ /        \  |  /|  | \// __ \_   |  |
+/_______  /____/ |__|  (____  /\__|  |
+        \/                  \/\______|
 
+  _____   __  .__                                
+  /  _  \_/  |_|  |__ _____ __________  _______   
+ /  /_\  \   __\  |  \\__  \\_  __ \  \/ /\__  \  
+/    |    \  | |   Y  \/ __ \|  | \/\   /  / __ \_
+\____|__  /__| |___|  (____  /__|    \_/  (____  /
+        \/          \/     \/                  \/ 
+		
+		
+.__    .__                             .__           
+|  |__ |__| _____ _____    ____   _____|  |__  __ __ 
+|  |  \|  |/     \\__  \  /    \ /  ___/  |  \|  |  \
+|   Y  \  |  Y Y  \/ __ \|   |  \\___ \|   Y  \  |  /
+|___|  /__|__|_|  (____  /___|  /____  >___|  /____/ 
+     \/         \/     \/     \/     \/     \/        
+
+
+
+
+
+-->
 </head>
+
+
 <style>
 	body{
 		width: 100%;
@@ -35,17 +64,35 @@ header("location:index.php?page=home");
 	}
 
 </style>
+<style>
+img {
+  display: block;
+  margin-left: auto;
+  margin-right: auto;
+  border-radius: 10%;
+}
+</style>
+<style>
+	body {
+		background-image:url("assets/dist/img/apshah.jpeg");
+		background-size:cover;
+	}
+	
+	</style>
 
-<body class="bg-dark">
+<body class="bg-dark" >
 
 
   <main id="main" >
-  	
+	
+ 	
   		<div class="align-self-center w-100">
-		<h4 class="text-white text-center"><b>Lab Maintenace Query Portal</b></h4>
-  		<div id="login-center" class="bg-dark row justify-content-center">
-  			<div class="card col-md-4">
-  				<div class="card-body">
+		  
+  		<div id="login-center" class=" row justify-content-center"  >
+  			<div class="card col-md-4" >
+  				<div class="card-body" >
+				  <img src="assets/dist/img/apsit logo.jpeg"   class="centre">
+		<h4 class="text-dark text-center"><b> Apsit Lab Maintenace Query Portal</b></h4> <br><br>
   					<form id="login-form" >
   						<div class="form-group">
   							<label for="username" class="control-label text-dark">Username</label>
@@ -59,17 +106,18 @@ header("location:index.php?page=home");
   							<label for="password" class="control-label text-dark">Type</label>
   							<select class="custom-select custom-select-sm" name="type">
   								<option value="3">User</option>
-  								<option value="2"> Maintenace Staff</option>
+  								<option value="2"> Subadmin </option>
   								<option value="1">Admin</option>
   								
   							</select>
   						</div>
-  						<center><button class="btn-sm btn-block btn-wave col-md-4 btn-primary">Login</button></center>
+  						<center><button class="btn-sm btn-block btn-wave col-md-4 btn-dark">Login</button></center>
   					</form>
   				</div>
   			</div>
   		</div>
   		</div>
+
   </main>
 
   <a href="#" class="back-to-top"><i class="icofont-simple-up"></i></a>

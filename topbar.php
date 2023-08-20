@@ -6,7 +6,10 @@
         <a class="nav-link" data-widget="pushmenu" href="#" role="button"><i class="fas fa-bars"></i></a>
       </li>
       <li>
-        <a class="nav-link text-white"  href="./" role="button"> <large><b>APSIT Lab Maintenance Query Portal</b></large></a>
+        <a class="navbar-brand" href="#">
+          <img src="assets\dist\img\apsit logo.jpeg" width="49" height="49" class="img-circle elevation" alt="Logo">
+          <b>APSIT | Maintenance Query Portal</b>
+        </a>
       </li>
     </ul>
 

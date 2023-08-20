@@ -5,16 +5,29 @@ if(!isset($conn)){
 	$uniqid = uniqid('TN'); 
 }
 ?>
+<!--------------------------------------------->
 <div class="col-lg-12">
 	<div class="card">
 		<div class="card-body">
 			<form action="mail.php" id="manage_ticket" method="post">
 				<input type="hidden" name="id" value="<?php echo isset($id) ? $id : '' ?>">
 					<div class="col-md-6">
+						<div class="form-group">
+             				<label for="selection">Type of Maintanence Work:</label>
+             					<select name="maintype" class="custom-select custom-select-sm select2" id="input" onchange="toggleMachineID(this)" required value="<?php echo isset($maintype) ? $maintype : '' ?>">
+                					<option></option>
+			    					<option>I.T.</option>
+			    					<option>Civil</option>
+                					<option>Electical</option>
+			    					<option>Carpentry</option>
+              					</select>
+          				</div>
 						<div class="form-group" method="POST">
 							<label for="" class="control-label">Floor:</label><br>
 							<select name="subject"  class="custom-select custom-select-sm select2" id="input" onchange="room()" required value="<?php echo isset($subject) ? $subject : '' ?>">
-							  <option ></option> 
+							  <option ></option>
+							  <option >Basement</option>
+							  <option >Ground</option>
 							  <option >1st</option>
 							  <option >2nd</option> 
 							  <option >3rd</option> 
@@ -22,8 +35,8 @@ if(!isset($conn)){
 							  <option >5th</option> 
 							</select> <br>
 
-							<label for="" class="control-label"> Lab no. </label><br>
-							<select name="lab" class="custom-select custom-select-sm select2"  id= "output" onchange="room1()" required value="<?php echo isset($lab) ? $lab : '' ?>"></select>
+							<label for="" class="control-label"> Lab/Room no. </label><br>
+							<input type ="text" class="form-control" name="lab"   id= "output"></select>
 						</div>
 					<?php if($_SESSION['login_type'] != 3): ?>
 						<div class="form-group">
@@ -40,7 +53,7 @@ if(!isset($conn)){
 						</div>
 					<?php endif; ?>
 						<div class="form-group">
-							<label for="" class="control-label">Department :</label>
+							<label for="" class="control-label">Department/Section :</label>
 							<select name="department_id" id="department_id" class="custom-select custom-select-sm select2">
 								<option value=""></option>
 							<?php
@@ -54,16 +67,15 @@ if(!isset($conn)){
 					</div>
 					<div class="col-md-6">
 					  <div class="form-group">
-					      <label for="" class="control-label"> Problem Faced:</label><br>
-							<select name="Problem" class="custom-select custom-select-sm select2" id="input" required value="<?php echo isset($Problem) ? $Problem : '' ?>" >
-							<option></option> <option>Software Issuse</option> <option>Hardware Issue</option> <option>OS Problem</option> <option>Projector Problem</option> <option>BIOS Issue</option> </select> 
+					      <label for="" class="control-label"> Machine ID: </label><br>
+							<input name="MID" class="form-control" id="input" required value="<?php echo isset($MID) ? $MID : '' ?>" > 
 					    </div>
 					</div>
 					<div class="col-md-6">
 					  <div class="form-group">
-					      <label for="" class="control-label"> Priority </label><br>
-							<select name="Priority" class="custom-select custom-select-sm select2" id="input" required value="<?php echo isset($Priority) ? $Priority : '' ?>" >
-							<option></option> <option>Low</option> <option>High</option> <option>Medium</option> <option>Urgent</option> <option>Emergency</option> </select> 
+					      <label for="" class="control-label"> Problem Faced:</label><br>
+							<select name="Problem" class="custom-select custom-select-sm select2" id="input" required value="<?php echo isset($Problem) ? $Problem : '' ?>" >
+							<option></option> <option>Electrical Issue</option><option>Carpentry Issue</option><option>Civil Work</option><option>Software Issuse</option> <option>Hardware Issue</option> <option>OS Problem</option> <option>Projector Problem</option> <option>BIOS Issue</option> </select> 
 					    </div>
 					</div>
 					<div class="col-md-12">
@@ -84,46 +96,20 @@ if(!isset($conn)){
 		</div>
 	</div>
 </div>
-<!------script for room combobox-->
-<script>
-	 function room()
 
-	{
-		var a = document.getElementById("input").value;
-		if(a==="1st")
-		{
-			var arr = ['101','102','103','104','105','106','107','108','109','110'];
-		}
-		else if(a==="2nd")
-		{
-			var arr= ['201','202','203','204','205','206','207','208','209','210'];
-		}
-		else if(a==="3rd")
-		{
-			var arr= ['301','302','303','304','305','306','307','308','309','310'];
-		}
-		else if(a==="4th")
-		{
-			var arr= ['401','402','403','404','405','406','407','408','409','410'];
-		}
-		else if(a==="5th")
-		{
-			var arr= ['501','502','503','504','505','506','507','508','509','510'];
-		}
-		var string="";
-             
-			 for(i=0;i<arr.length;i++)
-			 {
-				 string=string+"<option value="+arr[i]+">"+arr[i]+"</option>";
-			 }
-			 document.getElementById("output").innerHTML=string;
-		 
-	}
-
-	
-
-</script>
 <!-------------------------------->
+<!-- Script for machine id -->
+<script>
+function toggleMachineID(selectElement) {
+  var machineIDInput = document.getElementsByName("MID")[0]; // Get the Machine ID input element
+
+  if (selectElement.value === "I.T.") {
+    machineIDInput.removeAttribute("disabled"); // Enable the input field
+  } else {
+    machineIDInput.setAttribute("disabled", "disabled"); // Disable the input field
+  }
+}
+</script>
 <script>
 	$('#manage_ticket').submit(function(e){
 		e.preventDefault()
@@ -149,4 +135,3 @@ if(!isset($conn)){
 		})
 	})
 </script>
-

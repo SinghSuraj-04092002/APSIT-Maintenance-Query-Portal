@@ -51,7 +51,7 @@
             <a href="#" class="nav-link nav-edit_staff">
               <i class="nav-icon fas fa-user"></i>
               <p>
-                Maintenance Staff
+                Subadmin
                 <i class="right fas fa-angle-left"></i>
               </p>
             </a>
@@ -98,12 +98,6 @@
                 <a href="./index.php?page=ticket_list" class="nav-link nav-ticket_list tree-item">
                   <i class="fas fa-angle-right nav-icon"></i>
                   <p>List</p>
-                </a>
-              </li>
-              <li class="nav-item">
-                <a href="./index.php?page=report" class="nav-link nav-report tree-item">
-                  <i class="fas fa-angle-right nav-icon"></i>
-                  <p>Report</p>
                 </a>
               </li>
             </ul>

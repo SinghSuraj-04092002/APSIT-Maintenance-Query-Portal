@@ -18,7 +18,7 @@
                   <?php echo $conn->query("SELECT * FROM customers")->num_rows; ?>
                 </span>
                 
-                 <a href="http://localhost/Queryportal/index.php?page=customer_list" class="small-box-footer">More info <i class="fas fa-arrow-circle-right"></i></a>
+                 <a href="./index.php?page=customer_list" class="small-box-footer">More info <i class="fas fa-arrow-circle-right"></i></a>
 
               </div>
               <!-- /.info-box-content -->
@@ -39,7 +39,7 @@
                  <span class="info-box-number">
                   <?php echo $conn->query("SELECT * FROM staff")->num_rows; ?>
                 </span>
-                <a href="http://localhost/Queryportal/index.php?page=staff_list" class="small-box-footer">More info <i class="fas fa-arrow-circle-right"></i></a>
+                <a href="./index.php?page=staff_list" class="small-box-footer">More info <i class="fas fa-arrow-circle-right"></i></a>
               </div>
               <!-- /.info-box-content -->
             </div>
@@ -61,7 +61,7 @@
                 <label></label>
                 <span class="info-box-text">Total Departments</span>
                 <span class="info-box-number"><?php echo $conn->query("SELECT * FROM departments")->num_rows; ?></span>
-                <a href="http://localhost/Queryportal/index.php?page=department_list" class="small-box-footer">More info <i class="fas fa-arrow-circle-right"></i></a>
+                <a href="./index.php?page=department_list" class="small-box-footer">More info <i class="fas fa-arrow-circle-right"></i></a>
               </div>
               <!-- /.info-box-content -->
             </div>
@@ -80,25 +80,14 @@
                 </label>
                 <span class="info-box-text">Total Tickets</span>
                 <span class="info-box-number"><?php echo $conn->query("SELECT * FROM tickets")->num_rows; ?></span>
-                <a href="http://localhost/Queryportal/index.php?page=ticket_list" class="small-box-footer">More info <i class="fas fa-arrow-circle-right"></i></a>
+                <a href="./index.php?page=ticket_list" class="small-box-footer">More info <i class="fas fa-arrow-circle-right"></i></a>
               </div>
               <!-- /.info-box-content -->
             </div>
             <!-- /.info-box -->
           </div>
           <!-- /.col -->
-        </div>
-<?php else: ?>
-	 <div class="col-12">
-          <div class="card">
-          	<div class="card-body">
-          		Welcome <?php echo $_SESSION['login_name'] ?>!
-          	</div>
-          </div>
-      </div>
-<?php endif; ?>
-
-<script src="js/chart.js"></script>
+          <script src="js/chart.js"></script>
 
 
 <!------------------------- pie chart--------------------------------------------->
@@ -107,89 +96,117 @@
  <div class="container-fluid">
    <div class="row">
      <div class="col-lg-6">
-       <div class="card">
-         <div class="card-header border-0">
-           <div class="d-flex justify-content-between">
-             <h3 class="card-title">Departments wise querys</h3>             
-           </div>
-          </div>
-          <div class="card-body">
-            <div class="d-flex">
-             <p class="d-flex flex-column">
-             <script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
-             <script type="text/javascript">
-               google.charts.load('current', {'packages':['corechart']});
-               google.charts.setOnLoadCallback(drawChart);
-               function drawChart() {
-               var chart2 = google.visualization.arrayToDataTable([
-               ['departments', 'number'],
-               <?php
-               //$sql = "SELECT department_id, count(*) as number FROM tickets GROUP BY department_id";
-                $sql = "SELECT departments.name, count(tickets.department_id) as number FROM departments JOIN tickets on departments.id = tickets.department_id GROUP BY departments.name";
-                $fire = mysqli_query($conn,$sql);
-               while ($result = mysqli_fetch_assoc($fire)) {
-               echo"['".$result['name']."',".$result['number']."],";
-               }
-               ?>
-               ]);
-               var options = {
-               title: '',
-               fontSize: 13,
-               is3D: true,
-               legend: 'top',
-               };
-               var chart = new google.visualization.PieChart(document.getElementById('piechart'));
-               chart.draw(chart2, options);
-               }
-              </script>
-              <div id="piechart" style="width: 550px; height: 420px;"> </div>
-            </div>
-          </div> 
-        </div>
+  <div class="card">
+    <div class="card-header border-0">
+      <div class="d-flex justify-content-between">
+        <h3 class="card-title">Departments wise querys</h3>             
       </div>
+    </div>
+    <div class="card-body">
+      <div class="d-flex">
+        <p class="d-flex flex-column">
+          <div id="piechart" style="width: 100%; max-width: 550px; height: 420px;"></div>
+        </p>
+        <script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
+        <script type="text/javascript">
+          google.charts.load('current', {'packages':['corechart']});
+          google.charts.setOnLoadCallback(drawChart);
+          function drawChart() {
+            var data = new google.visualization.DataTable();
+            data.addColumn('string', 'departments');
+            data.addColumn('number', 'number');
+            <?php
+            $sql = "SELECT departments.name, count(tickets.department_id) as number FROM departments JOIN tickets on departments.id = tickets.department_id GROUP BY departments.name";
+            $fire = mysqli_query($conn, $sql);
+            while ($result = mysqli_fetch_assoc($fire)) {
+              echo "data.addRow(['" . $result['name'] . "'," . $result['number'] . "]);";
+            }
+            ?>
+            
+            var options = {
+              title: '',
+              fontSize: 13,
+              is3D: true,
+              legend: 'top',
+            };
+            
+            var chart = new google.visualization.PieChart(document.getElementById('piechart'));
+            
+            google.visualization.events.addListener(chart, 'select', selectHandler);
+            
+            function selectHandler() {
+                    var selectedItem = chart.getSelection()[0];
+                    if (selectedItem) {
+                      
+                      window.location.href = 'index.php?page=ticket_list';
+                    }
+                  }
+            
+            chart.draw(data, options);
+          }
+        </script>
+      </div>
+    </div> 
+  </div>
+</div>
+
                     <!----------------------- donut chart----------->
-     <div class="col-lg-6">
-       <div class="card">
-         <div class="card-header border-0">
-           <div class="d-flex justify-content-between">
-             <h3 class="card-title">Solved and Unsolved queries</h3>             
-           </div>
-          </div>
-           <div class="card-body">
-                        
-              <div class="position-relative mb-4">
-                <script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
-                <script type="text/javascript">
-                  google.charts.load('current', {'packages':['corechart']});
-                  google.charts.setOnLoadCallback(drawChart);
-                  function drawChart() {
-                  var chart3 = google.visualization.arrayToDataTable([
-                  ['status', 'value'],
-                  <?php
-                  //$sql = "SELECT status, count(*) as value FROM tickets GROUP BY status";
-                  $sql = "SELECT statuses.name, count(tickets.status) as value FROM statuses JOIN tickets on statuses.id = tickets.status GROUP BY statuses.name";
-                  $fire = mysqli_query($conn,$sql);
-                  while ($result = mysqli_fetch_assoc($fire)) {
-                  echo"['".$result['name']."',".$result['value']."],";
-                  }
-                  ?>
-                  ]);
-                  var options = {
-                  title: '',
-                  fontSize: 13,
-                  //is3D: true,
-                  legend: 'top',
-                  pieHole: 0.4,
-                  };
-                  var chart = new google.visualization.PieChart(document.getElementById('donutchart'));
-                  chart.draw(chart3, options);
-                  }
-                </script>
-                <div id="donutchart" style="width: 550px; height: 390px;">
-              </div>                             
-            </div>        
-       </div>
-     </div>
+                    <div class="col-lg-6">
+  <div class="card">
+    <div class="card-header border-0">
+      <div class="d-flex justify-content-between">
+        <h3 class="card-title">Solved and Unsolved queries</h3>             
+      </div>
+    </div>
+    <div class="card-body">
+      <div class="position-relative mb-4">
+        <div id="donutchart" style="width: 100%; max-width: 550px; height: 390px;"></div>
+      </div>
+      <script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
+      <script type="text/javascript">
+        google.charts.load('current', {'packages':['corechart']});
+        google.charts.setOnLoadCallback(drawChart);
+        
+        function drawChart() {
+          var chart3 = google.visualization.arrayToDataTable([
+            ['status', 'value'],
+            <?php
+            //$sql = "SELECT status, count(*) as value FROM tickets GROUP BY status";
+            $sql = "SELECT statuses.name, count(tickets.status) as value FROM statuses JOIN tickets on statuses.id = tickets.status GROUP BY statuses.name";
+            $fire = mysqli_query($conn,$sql);
+            while ($result = mysqli_fetch_assoc($fire)) {
+              echo "['".$result['name']."',".$result['value']."],";
+            }
+            ?>
+          ]);
+
+          var options = {
+            title: '',
+            fontSize: 13,
+            //is3D: true,
+            legend: 'top',
+            pieHole: 0.4,
+          };
+          
+          var chart = new google.visualization.PieChart(document.getElementById('donutchart'));
+
+          // Add an event listener to handle clicks on chart segments
+          google.visualization.events.addListener(chart, 'select', function() {
+            var selectedItem = chart.getSelection()[0];
+            if (selectedItem) {
+              // Simply redirect to ticket_list.php without any parameters
+              window.location.href = 'index.php?page=ticket_list';
+            }
+          });
+
+          chart.draw(chart3, options);
+        }
+      </script>
+    </div>
+  </div>
+</div>
+
+
    </div>
  </div>
   
@@ -250,7 +267,16 @@
     </div>
   </div>
 </div>
-
+        </div>
+<?php else: ?>
+	 <div class="col-12">
+          <div class="card">
+          	<div class="card-body">
+          		Welcome <?php echo $_SESSION['login_name'] ?>!
+          	</div>
+          </div>
+      </div>
+<?php endif; ?>
 
 
 </div>

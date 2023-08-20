@@ -5,8 +5,9 @@
   ob_start();
   $title = isset($_GET['page']) ? ucwords(str_replace("_", ' ', $_GET['page'])) : "Home";
   ?>
-  <title><?php echo $title ?> | APSIT Lab Maintenance Query Portal</title>
+  <title><?php echo $title ?> | APSIT Maintenance Query Portal</title>
   <?php ob_end_flush() ?>
+  <link rel="icon" href="assets\dist\img\favicon.ico" type="image/x-icon">
 
   <!-- Google Font: Source Sans Pro -->
   <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,400i,700&display=fallback">
