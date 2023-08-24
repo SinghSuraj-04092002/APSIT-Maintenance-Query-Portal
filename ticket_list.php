@@ -1,5 +1,16 @@
 <?php include 'db_connect.php';
 ?>
+<!-- style for responsive table --->
+<style>
+    .table-responsive {
+        overflow-x: auto; /* Add horizontal scrolling when needed */
+    }
+
+    /* Optional: Reduce padding to fit more content */
+    .table-bordered td, .table-bordered th {
+        padding: 8px;
+    }
+</style>
 <script src="../../plugins/datatables-buttons/js/buttons.print.min.js"></script>
 <script src="../../plugins/datatables-buttons/js/buttons.colVis.min.js"></script>
 <div class="col-lg-12">
@@ -89,10 +100,7 @@
 					<option value="Library">Library</option>
                     <option value="Mechanical">Mechanical</option>
 					<option value="T & P Section">Training & placement</option>
-					<option value="Other">Other</option>
-					
-					
-
+					<option value="Other">Other</option>		
                 </select>
 			</div>
 			<!-- Priority filter -->
@@ -132,6 +140,7 @@
 					<option value="Closed">Closed</option>
     			</select>
 			</div>
+			<div class="table-responsive">
 			<table class="table table-hover table-bordered" id="list">
 				<colgroup>
 					<col width="5%">
@@ -217,6 +226,7 @@
 				<?php endwhile; ?>
 				</tbody>
 			</table>
+			</div>
 		</div>
 	</div>
 </div>
@@ -226,7 +236,40 @@
     var table = $('#list').DataTable({
         "processing": true,
         "dom": '1Bfrtip',
-        "buttons": ['copy', 'excel', 'pdf', 'csv', 'print', 'colvis'],
+        "buttons": [
+            {
+                extend: 'copyHtml5',
+                exportOptions: {
+                    columns: ':visible' // Only export visible columns
+                }
+            },
+            {
+                extend: 'excelHtml5',
+                exportOptions: {
+                    columns: ':visible' // Only export visible columns
+                }
+            },
+            {
+                extend: 'pdfHtml5',
+                exportOptions: {
+                    columns: ':visible' // Only export visible columns
+                }
+            },
+            {
+                extend: 'csvHtml5',
+                exportOptions: {
+                    columns: ':visible' // Only export visible columns
+                }
+            },
+            {
+                extend: 'print',
+                exportOptions: {
+                    columns: ':visible', // Only print visible columns
+                    stripHtml: false // Prevent stripping HTML
+                }
+            },
+            'colvis' // Column visibility button
+        ],
         "columnDefs": [{
             "targets": [2],  // Index of the "Year" column
             "visible": true,
