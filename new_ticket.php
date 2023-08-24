@@ -18,7 +18,7 @@ if(!isset($conn)){
                 					<option></option>
 			    					<option>I.T.</option>
 			    					<option>Civil</option>
-                					<option>Electical</option>
+                					<option>Electrical</option>
 			    					<option>Carpentry</option>
               					</select>
           				</div>
