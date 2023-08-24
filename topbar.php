@@ -1,5 +1,5 @@
 <!-- Navbar -->
-  <nav class="main-header navbar navbar-expand navbar-primary navbar-dark ">
+  <nav class="main-header navbar navbar-expand navbar-dark ">
     <!-- Left navbar links -->
     <ul class="navbar-nav">
       <li class="nav-item">
