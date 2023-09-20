@@ -114,21 +114,6 @@
                     <option value="Carpentry">Carpentry Maintenance</option>
                 </select>
             </div>
-			<!-- Problem filter -->
-			<div class="form-group" style="display: inline-block; margin-right: 25px;">
-				<label for="Problems" class="control-label">Problems :</label>
-				<select id="Problems" class="form-control" style="width: 120px;">
-				<option value="">All</option>
-				<option value="Electrical Issue">Electrical Issue</option>
-				<option value="Civil work">Civil work</option>
-				<option value="Carpentry Issue">Carpentary Issue</option>
-				<option value="Software Issuse">Software Issue</option> 
-				<option value="Hardware Issue">Hardware Issue</option> 
-				<option value="OS Problem">OS Problem</option> 
-				<option value="Projector Problem">Projector Problem</option> 
-				<option value="BIOS Issue">BIOS Issue</option> </select> 
-                </select>
-			</div>
 			<!-- Status filter -->
 			<div class="form-group" style="display: inline-block; margin-right: 25px;">
     			<label for="status-filter">Filter by Status:</label>
@@ -159,7 +144,7 @@
 				<thead>
 					<tr>
 						<th>#</th>
-						<th>Ticket no.</th>
+						<th>Request no.</th>
 						<th>Date Created</th>
 						<th>Type of Maintenance</th>
 						<th>User</th>
@@ -167,7 +152,6 @@
 						<th>Floor</th>
 						<th>Lab no.</th>
 						<th>MID</th>
-						<th>Problem</th>
 						<th>Status</th>
 						<th>Action</th>	
 					</tr>
@@ -184,8 +168,8 @@
 					while($row= $qry->fetch_assoc()):
 						$trans = get_html_translation_table(HTML_ENTITIES,ENT_QUOTES);
 						unset($trans["\""], $trans["<"], $trans[">"], $trans["<h2"]);
-						$desc = strtr(html_entity_decode($row['Problem']),$trans);
-						$desc = str_replace(array("<li>", "</li>"), array("", ", "), $desc);
+						//$desc = strtr(html_entity_decode($row['Problem']),$trans);
+						//$desc = str_replace(array("<li>", "</li>"), array("", ", "), $desc);
 					?>
 					<tr>
 						<th class="text-center"><?php echo $i++ ?></th>
@@ -197,7 +181,6 @@
 						<td><b><?php echo $row['subject'] ?></b></td>
 						<td><b><?php echo $row['lab'] ?></b></td>
 						<td><b><?php echo $row['MID'] ?></b></td>
-						<td><b class="truncate"><?php echo strip_tags($desc) ?></b></td>
 						
 						<td>
 							<?php if($row['status'] == 0): ?>
@@ -301,21 +284,6 @@
         var selectedDate = $(this).val();
         table.column(2).search(selectedDate).draw(); 
     });
-	// Event listener for the "From" and "To" date filters
-	// $('#from-date-filter, #to-date-filter').on('change', function () {
-    //	var fromDate = $('#from-date-filter').val();
-    //	var toDate = $('#to-date-filter').val();
-    //	table.columns(2).search('').draw();  // Reset the column search for the date column (index 2)
-
-    //	if (fromDate && toDate) {
-    //   		table.columns(2).search(fromDate + ' to ' + toDate, true, false).draw();
-    //	} else if (fromDate) {
-    //   	table.columns(2).search(fromDate).draw();  // Apply the single date filter for "From" date
-    //	} else if (toDate) {
-    //    	table.columns(2).search(toDate).draw();  // Apply the single date filter for "To" date
-    //	}
-	// });
-
 	// Event listener for the Year filter
 	$('#Year').on('change', function () {
         var selectedYear = $(this).val();
@@ -339,20 +307,11 @@
         var selectedPriority = $(this).val();
         table.column(3).search(selectedPriority).draw();  // Apply the filter to the "Priority" column (index 9)
     });
-
-	// Event listener for the Problem filter
-    $('#Problems').on('change', function() {
-        var selectedProblem = $(this).val();
-        table.column(9).search(selectedProblem).draw(); 
-    });
-
 	// Event listener for the status filter
 	$('#status-filter').on('change', function () {
     	var selectedStatus = $(this).val();
     	table.column(10).search(selectedStatus).draw();  // Apply the filter to the "Status" column (index 10)
 	});
-	
-
 	// Delegated event listener for the delete ticket functionality
     $(document).on('click', '.delete_ticket', function () {
         var ticketId = $(this).data('id');

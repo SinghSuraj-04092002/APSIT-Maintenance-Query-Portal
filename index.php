@@ -20,13 +20,28 @@
 	  </div>
     <div id="toastsContainerTopRight" class="toasts-top-right fixed"></div>
     <!-- Content Header (Page header) -->
-    
+    <?php
+// Define an associative array for page titles
+$pageTitles = [
+    'home' => 'Home',
+    'new_customer' => ' New User',
+    'customer_list' => 'Users List',
+    'new_staff' => ' New Staff',
+    'staff_list'=> 'Staff List',
+    'department_list'=> 'Deparment List',
+    'new_ticket'=> 'Book your Maintenance Request',
+    'ticket_list'=> 'List of Maintenance Request',  ];
+?>
     <div class="content-header">
       <div class="container-fluid" >
         <div class="row mb-2">
           <div class="col-sm-6">
-            <h1 class="m-0"><?php echo $title ?></h1>
-          </div><!-- /.col -->
+          <?php
+        $currentPage = isset($_GET['page']) ? $_GET['page'] : 'home';
+        $pageTitle = isset($pageTitles[$currentPage]) ? $pageTitles[$currentPage] : 'Unknown Page';
+        ?>
+        <h1 class="m-0"><?php echo $pageTitle; ?></h1>
+      </div><!-- /.col -->
 
         </div ><!-- /.row -->
             <hr class="border-primary">
@@ -112,7 +127,7 @@
     <strong><a href="https://www.apsit.edu.in/">A.P. Shah Institute of Technology</a>.</strong>
     All rights reserved.
     <div class="float-right d-none d-sm-inline-block">
-      <b>APSIT | Maintenece Query Portal</b>
+      <b>APSIT | Maintenance Query Portal</b>
     </div>
   </footer>
 </div>

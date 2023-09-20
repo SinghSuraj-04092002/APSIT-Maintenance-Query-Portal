@@ -16,10 +16,10 @@ if(!isset($conn)){
              				<label for="selection">Type of Maintanence Work:</label>
              					<select name="maintype" class="custom-select custom-select-sm select2" id="input" onchange="toggleMachineID(this)" required value="<?php echo isset($maintype) ? $maintype : '' ?>">
                 					<option></option>
-			    					<option>I.T.</option>
-			    					<option>Civil</option>
-                					<option>Electrical</option>
-			    					<option>Carpentry</option>
+			    					<option>Civil Maintenance</option>
+                					<option>Electrical Maintenance</option>
+			    					<option>Carpentry related issues/work</option>
+									<option>I.T. Lab Maintenance</option>
               					</select>
           				</div>
 						<div class="form-group" method="POST">
@@ -71,13 +71,7 @@ if(!isset($conn)){
 							<input name="MID" class="form-control" id="input" required value="<?php echo isset($MID) ? $MID : '' ?>" > 
 					    </div>
 					</div>
-					<div class="col-md-6">
-					  <div class="form-group">
-					      <label for="" class="control-label"> Problem Faced:</label><br>
-							<select name="Problem" class="custom-select custom-select-sm select2" id="input" required value="<?php echo isset($Problem) ? $Problem : '' ?>" >
-							<option></option> <option>Electrical Issue</option><option>Carpentry Issue</option><option>Civil Work</option><option>Software Issuse</option> <option>Hardware Issue</option> <option>OS Problem</option> <option>Projector Problem</option> <option>BIOS Issue</option> </select> 
-					    </div>
-					</div>
+					
 					<div class="col-md-12">
 						<div class="form-group">
 							<label class="control-label">Description</label>
@@ -103,7 +97,7 @@ if(!isset($conn)){
 function toggleMachineID(selectElement) {
   var machineIDInput = document.getElementsByName("MID")[0]; // Get the Machine ID input element
 
-  if (selectElement.value === "I.T.") {
+  if (selectElement.value === "I.T. Lab Maintenance") {
     machineIDInput.removeAttribute("disabled"); // Enable the input field
   } else {
     machineIDInput.setAttribute("disabled", "disabled"); // Disable the input field

@@ -16,7 +16,7 @@ foreach($qry as $k => $v){
 			<div class="card card-outline card-success">
 				<div class="card-header">
 					<h3 class="card-title"></h3>
-					<label for="" class="card-title">Ticket no.</label>
+					<label for="" class="card-title">Request no.</label>
 					<p class="control-label"><b><?php echo $uniqid ?></b></p>
 					<label for="" class="card-title">Date & Time: </label>
 					<p class="control-label"><b><?php echo $date_created ?></b></p>
@@ -58,8 +58,7 @@ foreach($qry as $k => $v){
 						</div>
 						<hr class="border-primary">
 						<div>
-							<label for="" class="control-label">Problem :</label>
-							<p class="ml-2 d-list"><b><?php echo $Problem ?></b></p>
+							<label for="" class="control-label">Description :</label>
 							<?php echo html_entity_decode($description) ?>
 						</div>
 					</div>

@@ -1,4 +1,5 @@
 <?php include'db_connect.php' ?>
+
 <div class="col-lg-12">
 	<div class="card card-outline card-primary">
 		<div class="card-header">
@@ -7,6 +8,7 @@
 			</div>
 		</div>
 		<div class="card-body">
+		<div class="table-responsive">
 			<table class="table tabe-hover table-bordered" id="list">
 				<thead>
 					<tr>
@@ -40,6 +42,7 @@
 				<?php endwhile; ?>
 				</tbody>
 			</table>
+		</div>
 		</div>
 	</div>
 </div>

@@ -1,4 +1,4 @@
-  <aside class="main-sidebar sidebar-dark-primary elevation-4">
+<aside class="main-sidebar sidebar-dark-primary elevation-4">
     <div class="dropdown">
    	<a href="javascript:void(0)" class="brand-link dropdown-toggle" data-toggle="dropdown" aria-expanded="true">
         <span class="brand-image img-circle elevation-3 d-flex justify-content-center align-items-center bg-primary text-white font-weight-500" style="width: 38px;height:50px"><?php echo strtoupper(substr($_SESSION['login_firstname'], 0,1).substr($_SESSION['login_lastname'], 0,1)) ?></span>
@@ -51,7 +51,7 @@
             <a href="#" class="nav-link nav-edit_staff">
               <i class="nav-icon fas fa-user"></i>
               <p>
-                Subadmin
+                Maintenance Staff
                 <i class="right fas fa-angle-left"></i>
               </p>
             </a>
@@ -74,7 +74,7 @@
             <a href="./index.php?page=department_list" class="nav-link nav-department_list">
               <i class="nav-icon fas fa-columns"></i>
               <p>
-                Department
+                Departments
               </p>
             </a>
           </li>
@@ -83,7 +83,7 @@
             <a href="#" class="nav-link nav-edit_ticket nav-view_ticket">
               <i class="nav-icon fas fa-ticket-alt"></i>
               <p>
-                Ticket
+               Maintenance Request
                 <i class="right fas fa-angle-left"></i>
               </p>
             </a>
@@ -100,6 +100,7 @@
                   <p>List</p>
                 </a>
               </li>
+              
             </ul>
           </li> 
         </ul>
